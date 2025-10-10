@@ -1,0 +1,1 @@
+Personal Calendar (local)\n\nRun with npm:\n  npm install\n  npm run dev\n\nThe app uses localStorage for persistence. No dummy events are included.

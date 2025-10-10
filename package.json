@@ -1,0 +1,31 @@
+{
+  "name": "personal-calendar-local",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@fullcalendar/daygrid": "6.1.8",
+    "@fullcalendar/interaction": "6.1.8",
+    "@fullcalendar/react": "6.1.8",
+    "@fullcalendar/timegrid": "6.1.8",
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.5",
+    "date-fns": "2.30.0",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mysql2": "^3.15.1",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^5.0.0",
+    "nodemon": "^3.1.10",
+    "vite": "^5.2.0"
+  }
+}
