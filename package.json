@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "scripts": {
-    "prebuild": "chmod +x ./node_modules/.bin/vite || true",
+ "scripts": {
+  "prebuild": "chmod +x ./node_modules/.bin/vite || true",
+  "build": "npx vite build",
   "start": "node backend/index.js",
-  "dev": "nodemon backend/index.js",
-  "build": "npx vite build"
+  "postinstall": "cd backend && npm install"
 },
   "dependencies": {
     "@fullcalendar/daygrid": "6.1.8",
