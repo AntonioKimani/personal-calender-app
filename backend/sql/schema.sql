@@ -1,0 +1,30 @@
+CREATE DATABASE IF NOT EXISTS personal_calendar;
+USE personal_calendar;
+
+CREATE TABLE IF NOT EXISTS users (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  email VARCHAR(255) UNIQUE NOT NULL,
+  password VARCHAR(255) NOT NULL,
+  role ENUM('boss','secretary','viewer') DEFAULT 'viewer',
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS events (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  owner_email VARCHAR(255) NOT NULL,
+  title VARCHAR(255) NOT NULL,
+  date DATE NOT NULL,
+  start TIME,
+  end TIME,
+  notes TEXT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (owner_email) REFERENCES users(email) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS remarks (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  owner_email VARCHAR(255) UNIQUE NOT NULL,
+  remarks TEXT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (owner_email) REFERENCES users(email) ON DELETE CASCADE
+);
