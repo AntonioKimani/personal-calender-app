@@ -1,104 +1,218 @@
-:root {
-  --bg: #ffffff;
-  --card: #ffffff;
-  --text: #0f172a;
-  --muted: #475569;
-  --primary: #0ea5e9;
-  --accent: #6366f1;
-}
+/* ============================================================
+   Personal Calendar App Stylesheet
+   Author: Antonio Kimani
+   Description: Clean and responsive design for the calendar app
+   ============================================================ */
 
-[data-theme='dark'] {
-  --bg: #121212;
-  --card: #1e1e1e;
-  --text: #e6eef8;
-  --muted: #9fb0c8;
-  --primary: #60a5fa;
-  --accent: #7c3aed;
-}
-
+/* --- Global Reset & Base Styles --- */
 * {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
-body, html, #root {
-  height: 100%;
-  margin: 0;
-  font-family: Inter, system-ui, Arial, Helvetica, sans-serif;
-  background: var(--bg);
-  color: var(--text);
+:root {
+  --primary-color: #2563eb;
+  --secondary-color: #f3f4f6;
+  --text-color: #1f2937;
+  --accent-color: #10b981;
+  --danger-color: #ef4444;
+  --bg-color: #ffffff;
+  --border-radius: 12px;
+  --transition: 0.3s ease-in-out;
+  --font-main: "Poppins", sans-serif;
 }
 
-.calendar-view {
-  max-width: 900px;
-  margin: 24px auto;
-  padding: 16px;
-}
-
-h3, h4 {
-  margin: 0 0 8px 0;
-}
-
-input[type='date'] {
-  padding: 6px 10px;
-  border-radius: 6px;
-  border: 1px solid #ddd;
-  background: var(--card);
-  color: var(--text);
-}
-
-/* --- Time grid --- */
-.time-grid {
+body {
+  font-family: var(--font-main);
+  background-color: var(--secondary-color);
+  color: var(--text-color);
   display: flex;
-  flex-direction: column;
-  gap: 2px; /* Small gap like Google Calendar */
-  margin-top: 12px;
-  border: 1px solid rgba(0,0,0,0.1);
-  border-radius: 8px;
-  background: var(--card);
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+/* --- Calendar Container --- */
+.calendar-container {
+  width: 100%;
+  max-width: 900px;
+  background: var(--bg-color);
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   overflow: hidden;
 }
 
-.hour-row {
+/* --- Header --- */
+.calendar-header {
   display: flex;
-  align-items: stretch;
-  min-height: 50px;
-  border-bottom: 1px solid rgba(0,0,0,0.08);
+  justify-content: space-between;
+  align-items: center;
+  background: var(--primary-color);
+  color: white;
+  padding: 1rem 2rem;
 }
 
-.hour-row:last-child {
-  border-bottom: none;
+.calendar-header h1 {
+  font-size: 1.5rem;
 }
 
-.hour-label {
-  width: 70px;
-  font-size: 13px;
-  color: var(--muted);
-  padding: 8px;
-  text-align: right;
-  border-right: 1px solid rgba(0,0,0,0.08);
-  background: rgba(0,0,0,0.02);
+.calendar-header button {
+  background: white;
+  color: var(--primary-color);
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
 }
 
-.hour-slot {
-  flex: 1;
-  padding: 6px 8px;
-  border-left: 1px solid transparent;
-  outline: none;
-  white-space: pre-wrap;
-  min-height: 50px;
-  cursor: text;
-  transition: background 0.2s;
+.calendar-header button:hover {
+  background: var(--accent-color);
+  color: white;
 }
 
-.hour-slot[contenteditable='true']:focus {
-  background: rgba(14,165,233,0.1);
-  border-left: 3px solid var(--primary);
+/* --- Days of the Week --- */
+.weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  background: var(--accent-color);
+  color: white;
+  text-align: center;
+  padding: 0.5rem 0;
+  font-weight: 600;
 }
 
-.hour-slot[contenteditable='false'] {
-  opacity: 0.6;
-  cursor: not-allowed;
-  background: rgba(0,0,0,0.03);
+/* --- Calendar Days --- */
+.days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.5rem;
+  padding: 1rem;
+  background: var(--secondary-color);
 }
 
-/* --- Re*
+.day {
+  background: var(--bg-color);
+  border-radius: var(--border-radius);
+  height: 90px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem;
+  transition: var(--transition);
+  cursor: pointer;
+  position: relative;
+}
+
+.day:hover {
+  background: #e0e7ff;
+}
+
+.day .date {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.day .event {
+  background: var(--primary-color);
+  color: white;
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+  margin-top: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.day.today {
+  outline: 3px solid var(--accent-color);
+}
+
+/* --- Event Modal --- */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+  opacity: 0;
+  transition: var(--transition);
+  z-index: 1000;
+}
+
+.modal.active {
+  visibility: visible;
+  opacity: 1;
+}
+
+.modal-content {
+  background: var(--bg-color);
+  border-radius: var(--border-radius);
+  padding: 2rem;
+  width: 400px;
+  max-width: 90%;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+.modal-content h2 {
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+  color: var(--primary-color);
+}
+
+.modal-content input,
+.modal-content textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  margin-bottom: 1rem;
+  font-family: var(--font-main);
+}
+
+.modal-content button {
+  background: var(--primary-color);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.modal-content button:hover {
+  background: var(--accent-color);
+}
+
+/* --- Footer --- */
+.footer {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+  .calendar-header h1 {
+    font-size: 1.2rem;
+  }
+
+  .day {
+    height: 75px;
+  }
+
+  .modal-content {
+    width: 90%;
+  }
+}
