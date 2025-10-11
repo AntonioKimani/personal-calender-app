@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "prebuild": "chmod +x ./node_modules/.bin/vite || true",
   "start": "node backend/index.js",
   "dev": "nodemon backend/index.js",
   "build": "npx vite build"
